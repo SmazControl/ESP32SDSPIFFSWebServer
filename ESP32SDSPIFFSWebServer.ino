@@ -10,8 +10,8 @@
 
 #define DBG_OUTPUT_PORT Serial
 
-const char* ssid = "phloenlom_2.4GHz";
-const char* password = "248248248";
+const char* ssid = "wisoot";
+const char* password = "parrot66";
 const char* host = "esp32sd";
 
 WebServer server(80);
@@ -227,6 +227,24 @@ void printDirectory() {
   dir.close();
 }
 
+void handleDownload() {
+  String html = R"=====(
+<html>
+<body>
+<br><br><br><br><br>
+<a href="" id="link" download>
+  Download
+</a>
+<script>
+document.getElementById("link").href="http://"+window.location.host+"/error_log";
+</script>
+</body>
+</html>
+  )=====";
+  server.send(200, "text/html", html);  
+}
+
+
 void handleNotFound() {
   if (hasSD && loadFromSdCard(server.uri())) {
     return;
@@ -275,8 +293,8 @@ void setup() {
 
   SPIFFS.begin();
   // server.on("/", handleRoot); 
-  server.on("/count", handleGenericArgs);
-
+  // server.on("/count", handleGenericArgs);
+  server.on("/download", handleDownload);
   server.on("/list", HTTP_GET, printDirectory);
   server.on("/edit", HTTP_DELETE, handleDelete);
   server.on("/edit", HTTP_PUT, handleCreate);

@@ -10,8 +10,8 @@
 
 #define DBG_OUTPUT_PORT Serial
 
-const char* ssid = "wisoot";
-const char* password = "parrot66";
+const char* ssid = "YourWiFiSSID";
+const char* password = "YourWiFiPassword";
 const char* host = "esp32sd";
 
 WebServer server(80);
@@ -236,7 +236,7 @@ void handleDownload() {
   Download
 </a>
 <script>
-document.getElementById("link").href="http://"+window.location.host+"/error_log";
+document.getElementById("link").href="http://"+window.location.host+"/error_log.txt";
 </script>
 </body>
 </html>
